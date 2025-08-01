@@ -21,7 +21,6 @@ public class WakeUpManager : MonoBehaviour
             WakeUp();
         }
 
-
         if (Input.GetKeyDown(KeyCode.Tab))
         {
             Sleep();
@@ -79,6 +78,13 @@ public class WakeUpManager : MonoBehaviour
     void LoadScene(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
+    }
+
+    //In case the puzzle demands the player move an extra sublevel ahead or behind
+    void MovePlayer(int spawnPointIndex)
+    {
+        player.position = spawnpoints[spawnPointIndex].position;
+        roomNumber = spawnPointIndex;
     }
 
     void MovePlayer()
