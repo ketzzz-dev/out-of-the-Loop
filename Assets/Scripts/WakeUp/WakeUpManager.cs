@@ -37,7 +37,7 @@ public class WakeUpManager : MonoBehaviour
         }
     }
 
-    /// Moves to the previous spawn point (Wake Up).
+    // Moves to the previous spawn point (Wake Up).
     public void WakeUp()
     {
         if (roomNumber <= 0)
@@ -50,7 +50,7 @@ public class WakeUpManager : MonoBehaviour
         MovePlayer();
     }
 
-    /// Moves to the next spawn point (Sleep).
+    // Moves to the next spawn point (Sleep).
     public void Sleep()
     {
         if (roomNumber >= spawnpoints.Length - 1)
@@ -63,7 +63,7 @@ public class WakeUpManager : MonoBehaviour
         MovePlayer();
     }
 
-    /// Moves backward by a specific number of rooms.
+    // Moves backward by a specific number of rooms.
     public void WakeUp(int steps)
     {
         roomNumber = Mathf.Max(roomNumber - steps, 0);
@@ -71,7 +71,7 @@ public class WakeUpManager : MonoBehaviour
     }
 
     
-    /// Moves forward by a specific number of rooms.
+    // Moves forward by a specific number of rooms.
     public void Sleep(int steps)
     {
         int targetRoom = roomNumber + steps;
@@ -88,7 +88,7 @@ public class WakeUpManager : MonoBehaviour
     }
 
     
-    /// Teleports player to current room's spawn point.
+    // Teleports player to current room's spawn point.
     private void MovePlayer()
     {
         if (player != null && spawnpoints.Length > 0)
@@ -98,7 +98,7 @@ public class WakeUpManager : MonoBehaviour
     }
 
     
-    /// Attempts to load the next scene if available.
+    // Attempts to load the next scene if available.
     private void TryLoadNextScene()
     {
         if (!string.IsNullOrEmpty(nextSceneName))
