@@ -11,15 +11,11 @@ public class WakeUpManager : MonoBehaviour
     void Awake()
     {
         player = FindAnyObjectByType<PlayerMovement>().transform;
-
-        if (spawnpoints.Length > 0)
-        {
-            MovePlayer();
-        }
     }
 
     void Update()
     {
+        //remove both if statements when not needed anymore
         if (Input.GetKeyDown(KeyCode.Backspace))
         {
             WakeUp();
@@ -32,6 +28,7 @@ public class WakeUpManager : MonoBehaviour
         }
     }
 
+    //Wake Up function, moves player to the previous spawn point
     void WakeUp()
     {
         if (roomNumber <= 0)
@@ -44,6 +41,7 @@ public class WakeUpManager : MonoBehaviour
         MovePlayer();
     }
 
+    //Sleep function, moves player to the next spawn point
     void Sleep()
     {
         if (roomNumber >= spawnpoints.Length - 1)
@@ -62,6 +60,7 @@ public class WakeUpManager : MonoBehaviour
         MovePlayer();
     }
 
+    //Loads scene of roomNumber and checks if the user is on the last room
     void NextScene()
     {
         if (roomNumber >= spawnpoints.Length - 1)
@@ -70,9 +69,16 @@ public class WakeUpManager : MonoBehaviour
         }
     }
 
+    //Loads scene regardless of roomNumber
     void LoadScene()
     {
         SceneManager.LoadScene(nextSceneName);
+    }
+
+    //Only if you need to load a different level/area
+    void LoadScene(string sceneName)
+    {
+        SceneManager.LoadScene(sceneName);
     }
 
     void MovePlayer()
