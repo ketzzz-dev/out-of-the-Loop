@@ -16,24 +16,35 @@ public class WakeUpManager : MonoBehaviour
         {
             MovePlayer();
         }
-            
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Tab))
+        if (Input.GetKeyDown(KeyCode.Backspace))
         {
             WakeUp();
         }
 
 
-        if (Input.GetKeyDown(KeyCode.Backspace))
+        if (Input.GetKeyDown(KeyCode.Tab))
         {
             Sleep();
         }
     }
 
     void WakeUp()
+    {
+        if (roomNumber <= 0)
+        {
+            Debug.Log("Can't sleep - already at first room");
+            return;
+        }
+
+        roomNumber--;
+        MovePlayer();
+    }
+
+    void Sleep()
     {
         if (roomNumber >= spawnpoints.Length - 1)
         {
@@ -51,24 +62,17 @@ public class WakeUpManager : MonoBehaviour
         MovePlayer();
     }
 
-    void Sleep()
-    {
-        if (roomNumber <= 0)
-        {
-            Debug.Log("Can't sleep - already at first room");
-            return;
-        }
-
-        roomNumber--;
-        MovePlayer();
-    }
-
     void NextScene()
     {
         if (roomNumber >= spawnpoints.Length - 1)
         {
             SceneManager.LoadScene(nextSceneName);
         }
+    }
+
+    void LoadScene()
+    {
+        SceneManager.LoadScene(nextSceneName);
     }
 
     void MovePlayer()
