@@ -40,9 +40,6 @@ public class ItemGrabber : MonoBehaviour {
 
 	private void OnTriggerEnter(Collider collider) {
 		if (collider.CompareTag("Item")) {
-			print("test! Item here!");
-			print(collider);
-
 			currentHoveredItem = collider.GetComponent<Item>();
 		}
 	}
@@ -50,7 +47,6 @@ public class ItemGrabber : MonoBehaviour {
 	private void OnTriggerExit(Collider collider) {
 		if (collider.GetComponent<Item>() == currentHoveredItem) {
 			currentHoveredItem = null;
-			print("Item gone!");
 		}
 	}
 }

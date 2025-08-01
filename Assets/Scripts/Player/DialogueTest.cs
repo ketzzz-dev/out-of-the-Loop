@@ -9,8 +9,6 @@ public class DialogueTest : MonoBehaviour
     private void Start()
     {
         graph = JsonUtility.FromJson<DialogueGraph>(dialogueFile.text);
-
-        
     }
     private void Update()
     {
