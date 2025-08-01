@@ -29,13 +29,15 @@ public class Dialogue : MonoBehaviour
         DialogueManager.instance.onSelectionStarted += OnSelectionStarted;
         DialogueManager.instance.onSelectionEnded += OnSelectionEnded;
 
-        for(int i = 0; i < maxOptions; i++)
+        for (int i = 0; i < maxOptions; i++)
         {
             var option = Instantiate(optionPrefab, options.transform);
 
             option.SetActive(false);
             optionPool.Add(option);
         }
+        
+        options.SetActive(false);
     }
 
     private void OnDestroy()
@@ -103,18 +105,21 @@ public class Dialogue : MonoBehaviour
 
             return;
         }
+        
+        options.SetActive(true);
 
         for (int i = 0; i < labels.Length; i++)
         {
             if (i >= maxOptions)
             {
                 break;
-            };
-            
+            }
+            ;
+
             var option = optionPool[i];
 
             option.SetActive(true);
-            
+
             var button = option.GetComponent<Button>();
             var labelText = option.GetComponentInChildren<TextMeshProUGUI>();
 
@@ -122,11 +127,11 @@ public class Dialogue : MonoBehaviour
             {
                 labelText.text = labels[i];
             }
-            
+
             string currentLabel = labels[i];
 
             button.onClick.RemoveAllListeners();
-            button.onClick.AddListener(() => 
+            button.onClick.AddListener(() =>
             {
                 DialogueManager.instance.SelectBranch(currentLabel);
             });

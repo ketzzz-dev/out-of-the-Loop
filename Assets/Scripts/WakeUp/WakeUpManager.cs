@@ -20,11 +20,12 @@ public class WakeUpManager : MonoBehaviour
         if (player == null)
         {
             Debug.LogError("PlayerMovement not found in scene!");
+
             return;
         }
     }
 
-    void Update()
+    void FixedUpdate()
     {
         // Temporary controls for debugging
         if (Input.GetKeyDown(KeyCode.Backspace))
@@ -56,7 +57,7 @@ public class WakeUpManager : MonoBehaviour
     {
         if (roomNumber >= spawnpoints.Length - 1)
         {
-            TryLoadNextScene();
+            // TryLoadNextScene();
             return;
         }
 
