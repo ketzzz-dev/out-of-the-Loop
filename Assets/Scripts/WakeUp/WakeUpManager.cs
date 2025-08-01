@@ -6,6 +6,7 @@ public class WakeUpManager : MonoBehaviour
     [Header("Spawnpoint & Room Settings")]
     [SerializeField] private Transform[] spawnpoints;
     [SerializeField] private int roomNumber = 0;
+    [SerializeField] private int steps = 1;
 
     [Header("Scene Settings")]
     [SerializeField] private string nextSceneName;
@@ -46,7 +47,7 @@ public class WakeUpManager : MonoBehaviour
             return;
         }
 
-        roomNumber--;
+        roomNumber = Mathf.Max(roomNumber - steps, 0);
         MovePlayer();
     }
 
@@ -59,34 +60,9 @@ public class WakeUpManager : MonoBehaviour
             return;
         }
 
-        roomNumber++;
+        roomNumber = Mathf.Min(roomNumber + steps, spawnpoints.Length - 1);
         MovePlayer();
     }
-
-    // Moves backward by a specific number of rooms.
-    public void WakeUp(int steps)
-    {
-        roomNumber = Mathf.Max(roomNumber - steps, 0);
-        MovePlayer();
-    }
-
-    
-    // Moves forward by a specific number of rooms.
-    public void Sleep(int steps)
-    {
-        int targetRoom = roomNumber + steps;
-
-        if (targetRoom >= spawnpoints.Length)
-        {
-            roomNumber = spawnpoints.Length - 1;
-            TryLoadNextScene();
-            return;
-        }
-
-        roomNumber = targetRoom;
-        MovePlayer();
-    }
-
     
     // Teleports player to current room's spawn point.
     private void MovePlayer()
@@ -94,10 +70,10 @@ public class WakeUpManager : MonoBehaviour
         if (player != null && spawnpoints.Length > 0)
         {
             player.position = spawnpoints[roomNumber].position;
+            Debug.Log($"Player moved to room {roomNumber} at {player.position}");
         }
     }
 
-    
     // Attempts to load the next scene if available.
     private void TryLoadNextScene()
     {
