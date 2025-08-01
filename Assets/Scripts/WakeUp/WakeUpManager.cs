@@ -1,9 +1,11 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class WakeUpManager : MonoBehaviour
 {
     [SerializeField] private Transform[] spawnpoints;
     [SerializeField] private int roomNumber = 0;
+    [SerializeField] private string nextSceneName;
     private Transform player;
 
     void Awake()
@@ -35,7 +37,13 @@ public class WakeUpManager : MonoBehaviour
     {
         if (roomNumber >= spawnpoints.Length - 1)
         {
-            Debug.Log("Can't wake up - already at last room");
+            if (nextSceneName != null)
+            {
+                NextScene();
+                return;
+            }
+
+            Debug.Log("Can't wake up - already at last level");
             return;
         }
 
@@ -53,6 +61,14 @@ public class WakeUpManager : MonoBehaviour
 
         roomNumber--;
         MovePlayer();
+    }
+
+    void NextScene()
+    {
+        if (roomNumber >= spawnpoints.Length - 1)
+        {
+            SceneManager.LoadScene(nextSceneName);
+        }
     }
 
     void MovePlayer()
