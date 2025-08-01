@@ -1,0 +1,38 @@
+{
+    "nodes": [
+        {
+            "id": "start",
+            "content": "Where... am I?",
+            "connections": [
+                {
+                    "label": "",
+                    "nextNode": "think"
+                }
+            ]
+        },
+        {
+            "id": "think",
+            "content": "Is this... a dream?",
+            "connections": [
+                {
+                    "label": "yes",
+                    "nextNode": "silence"
+                },
+                {
+                    "label": "no",
+                    "nextNode": "contemplate"
+                }
+            ]
+        },
+        {
+            "id": "silence",
+            "content": "...",
+            "connections": []
+        },
+        {
+            "id": "contemplate",
+            "content": "Why...",
+            "connections": []
+        }
+    ]
+}
