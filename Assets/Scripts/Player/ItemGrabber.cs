@@ -1,17 +1,20 @@
 using UnityEngine;
 
-public class ItemGrabber : MonoBehaviour {
-	private Item currentHoveredItem;
+public class ItemGrabber : MonoBehaviour
+{
 	[SerializeField] private Inventory inventory;
 	[SerializeField] private GameObject blankItem;
 
-	public void PickupItem(Item item) {
-		print($"pickedup {item}");
+	private Item currentHoveredItem;
 
-		if (!inventory.heldItem) {
+	public void PickupItem(Item item)
+	{
+		if (!inventory.heldItem)
+		{
 			inventory.ChangeHeldItem(item);
 		}
-		else {
+		else
+		{
 			DropItem();
 
 			inventory.ChangeHeldItem(item);
@@ -20,32 +23,38 @@ public class ItemGrabber : MonoBehaviour {
 		item.gameObject.SetActive(false);
 	}
 
-	public void DropItem() {
+	public void DropItem()
+	{
 		inventory.heldItem.gameObject.SetActive(true);
 		inventory.heldItem.transform.SetPositionAndRotation(transform.position, transform.rotation);
 
 		inventory.ClearHeldItem();
-
-		print("dropped item!");
 	}
 
-	private void Update() {
-		if (Input.GetKeyDown(KeyCode.F)) {
+	private void Update()
+	{
+		if (Input.GetKeyDown(KeyCode.F))
+		{
 			PickupItem(currentHoveredItem);
 		}
-		if (Input.GetKeyDown(KeyCode.G)) {
+		if (Input.GetKeyDown(KeyCode.G))
+		{
 			DropItem();
 		}
 	}
 
-	private void OnTriggerEnter(Collider collider) {
-		if (collider.CompareTag("Item")) {
+	private void OnTriggerEnter(Collider collider)
+	{
+		if (collider.CompareTag("Item"))
+		{
 			currentHoveredItem = collider.GetComponent<Item>();
 		}
 	}
 
-	private void OnTriggerExit(Collider collider) {
-		if (collider.GetComponent<Item>() == currentHoveredItem) {
+	private void OnTriggerExit(Collider collider)
+	{
+		if (collider.GetComponent<Item>() == currentHoveredItem)
+		{
 			currentHoveredItem = null;
 		}
 	}

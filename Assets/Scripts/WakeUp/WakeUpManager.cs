@@ -3,6 +3,8 @@ using UnityEngine.SceneManagement;
 
 public class WakeUpManager : MonoBehaviour
 {
+    public static WakeUpManager instance { get; private set; }
+
     [Header("Spawnpoint & Room Settings")]
     [SerializeField] private Transform[] spawnpoints;
     [SerializeField] private int roomNumber = 0;
@@ -10,32 +12,17 @@ public class WakeUpManager : MonoBehaviour
 
     [Header("Scene Settings")]
     [SerializeField] private string nextSceneName;
-
-    private Transform player;
+    [SerializeField] private Transform player;
 
     void Awake()
     {
-        player = FindAnyObjectByType<PlayerMovement>().transform;
-
-        if (player == null)
+        if (instance != null && instance != this)
         {
-            Debug.LogError("PlayerMovement not found in scene!");
-
-            return;
+            Destroy(this);
         }
-    }
-
-    void FixedUpdate()
-    {
-        // Temporary controls for debugging
-        if (Input.GetKeyDown(KeyCode.Backspace))
+        else
         {
-            WakeUp();
-        }
-
-        if (Input.GetKeyDown(KeyCode.Tab))
-        {
-            Sleep();
+            instance = this;
         }
     }
 

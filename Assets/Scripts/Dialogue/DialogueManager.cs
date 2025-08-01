@@ -9,7 +9,7 @@ public class DialogueManager : MonoBehaviour
 
     // event delagates
     public event Action<string> onDialogueStarted;
-    public event Action<string> onDialogueChanged;
+    public event Action<string, string> onDialogueChanged;
     public event Action onDialogueEnded;
 
     public event Action<string[]> onSelectionStarted;
@@ -109,7 +109,7 @@ public class DialogueManager : MonoBehaviour
                 return;
             }
 
-            onDialogueChanged?.Invoke(currentNode.content);
+            onDialogueChanged?.Invoke(currentNode.content, currentNode.id);
         }
         else // Variable connections (branching)
         {
@@ -146,7 +146,7 @@ public class DialogueManager : MonoBehaviour
 
         isSelecting = false;
         onSelectionEnded?.Invoke();
-        onDialogueChanged?.Invoke(currentNode.content);
+        onDialogueChanged?.Invoke(currentNode.content, currentNode.id);
     }
 
     private void HandleBranching(DialogueGraph.DialogueConnection[] connections)

@@ -40,24 +40,9 @@ public class Dialogue : MonoBehaviour
         options.SetActive(false);
     }
 
-    private void OnDestroy()
+    private void FixedUpdate()
     {
-        if (DialogueManager.instance == null)
-        {
-            return;
-        }
-        
-        DialogueManager.instance.onDialogueStarted -= OnDialogueStarted;
-        DialogueManager.instance.onDialogueChanged -= OnDialogueChanged;
-        DialogueManager.instance.onDialogueEnded -= OnDialogueEnded;
-
-        DialogueManager.instance.onSelectionStarted -= OnSelectionStarted;
-        DialogueManager.instance.onSelectionEnded -= OnSelectionEnded;
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetMouseButtonDown(0))
         {
             if (isTyping)
             {
@@ -87,7 +72,7 @@ public class Dialogue : MonoBehaviour
         ShowDialogue(content);
     }
 
-    private void OnDialogueChanged(string content)
+    private void OnDialogueChanged(string content, string node)
     {
         ShowDialogue(content);
     }
