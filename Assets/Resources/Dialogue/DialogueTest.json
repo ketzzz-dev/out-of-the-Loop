@@ -16,11 +16,11 @@
             "connections": [
                 {
                     "label": "yes",
-                    "nextNode": "silence"
+                    "nextNode": "contemplate"
                 },
                 {
                     "label": "no",
-                    "nextNode": "contemplate"
+                    "nextNode": "silence"
                 }
             ]
         },
@@ -31,7 +31,7 @@
         },
         {
             "id": "contemplate",
-            "content": "Why...",
+            "content": "Why?",
             "connections": []
         }
     ]
