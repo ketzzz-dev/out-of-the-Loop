@@ -3,19 +3,39 @@ using UnityEngine.SceneManagement;
 
 public class WakeUpManager : MonoBehaviour
 {
+    [Header("Spawnpoint & Room Settings")]
     [SerializeField] private Transform[] spawnpoints;
     [SerializeField] private int roomNumber = 0;
+
+    [Header("Scene Settings")]
     [SerializeField] private string nextSceneName;
+
     private Transform player;
 
     void Awake()
     {
         player = FindAnyObjectByType<PlayerMovement>().transform;
+
+        if (player == null)
+        {
+            Debug.LogError("PlayerMovement not found in scene!");
+            return;
+        }
+
+        // Move player to initial spawn point
+        if (spawnpoints.Length > 0)
+        {
+            MovePlayer();
+        }
+        else
+        {
+            Debug.LogWarning("No spawnpoints assigned to WakeUpManager!");
+        }
     }
 
     void Update()
     {
-        //remove both if statements when not needed anymore
+        // Temporary controls for debugging
         if (Input.GetKeyDown(KeyCode.Backspace))
         {
             WakeUp();
@@ -27,12 +47,12 @@ public class WakeUpManager : MonoBehaviour
         }
     }
 
-    //Wake Up function, moves player to the previous spawn point
-    void WakeUp()
+    /// Moves to the previous spawn point (Wake Up).
+    public void WakeUp()
     {
         if (roomNumber <= 0)
         {
-            Debug.Log("Can't sleep - already at first room");
+            Debug.Log("Can't move backward - already at first room.");
             return;
         }
 
@@ -40,18 +60,12 @@ public class WakeUpManager : MonoBehaviour
         MovePlayer();
     }
 
-    //Sleep function, moves player to the next spawn point
-    void Sleep()
+    /// Moves to the next spawn point (Sleep).
+    public void Sleep()
     {
         if (roomNumber >= spawnpoints.Length - 1)
         {
-            if (nextSceneName != null)
-            {
-                NextScene();
-                return;
-            }
-
-            Debug.Log("Can't wake up - already at last level");
+            TryLoadNextScene();
             return;
         }
 
@@ -59,36 +73,51 @@ public class WakeUpManager : MonoBehaviour
         MovePlayer();
     }
 
-    //Loads scene of roomNumber and checks if the user is on the last room
-    void NextScene()
+    /// Moves backward by a specific number of rooms.
+    public void WakeUp(int steps)
     {
-        if (roomNumber >= spawnpoints.Length - 1)
+        roomNumber = Mathf.Max(roomNumber - steps, 0);
+        MovePlayer();
+    }
+
+    
+    /// Moves forward by a specific number of rooms.
+    public void Sleep(int steps)
+    {
+        int targetRoom = roomNumber + steps;
+
+        if (targetRoom >= spawnpoints.Length)
         {
-            SceneManager.LoadScene(nextSceneName);
+            roomNumber = spawnpoints.Length - 1;
+            TryLoadNextScene();
+            return;
+        }
+
+        roomNumber = targetRoom;
+        MovePlayer();
+    }
+
+    
+    /// Teleports player to current room's spawn point.
+    private void MovePlayer()
+    {
+        if (player != null && spawnpoints.Length > 0)
+        {
+            player.position = spawnpoints[roomNumber].position;
         }
     }
 
-    //Loads scene regardless of roomNumber
-    void LoadScene()
+    
+    /// Attempts to load the next scene if available.
+    private void TryLoadNextScene()
     {
-        SceneManager.LoadScene(nextSceneName);
-    }
-
-    //Only if you need to load a different level/area
-    void LoadScene(string sceneName)
-    {
-        SceneManager.LoadScene(sceneName);
-    }
-
-    //In case the puzzle demands the player move an extra sublevel ahead or behind
-    void MovePlayer(int spawnPointIndex)
-    {
-        player.position = spawnpoints[spawnPointIndex].position;
-        roomNumber = spawnPointIndex;
-    }
-
-    void MovePlayer()
-    {
-        player.position = spawnpoints[roomNumber].position;
+        if (!string.IsNullOrEmpty(nextSceneName))
+        {
+            SceneManager.LoadScene(nextSceneName);
+        }
+        else
+        {
+            Debug.Log("Can't move forward - last room reached and no next scene assigned.");
+        }
     }
 }
