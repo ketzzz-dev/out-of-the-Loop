@@ -21,16 +21,6 @@ public class WakeUpManager : MonoBehaviour
             Debug.LogError("PlayerMovement not found in scene!");
             return;
         }
-
-        // Move player to initial spawn point
-        if (spawnpoints.Length > 0)
-        {
-            MovePlayer();
-        }
-        else
-        {
-            Debug.LogWarning("No spawnpoints assigned to WakeUpManager!");
-        }
     }
 
     void Update()
