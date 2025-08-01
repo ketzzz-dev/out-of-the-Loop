@@ -44,7 +44,6 @@ public class WakeUpManager : MonoBehaviour
     {
         if (roomNumber <= 0)
         {
-            Debug.Log("Can't move backward - already at first room.");
             return;
         }
 
