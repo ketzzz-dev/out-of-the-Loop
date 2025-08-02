@@ -5,6 +5,7 @@ public enum ItemType {
 	None,
 	Placeholder,
 	Placeholder2,
+	flower,
 	// Rest of the other items here
 }
 
