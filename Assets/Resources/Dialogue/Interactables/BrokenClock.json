@@ -1,0 +1,9 @@
+{
+    "nodes": [
+        {
+            "id": "start",
+            "content": "The hands are missing, it’s making some noise too...",
+            "connections": []
+        }
+    ]
+}
