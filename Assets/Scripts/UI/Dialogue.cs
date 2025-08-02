@@ -40,6 +40,21 @@ public class Dialogue : MonoBehaviour
         options.SetActive(false);
     }
 
+    private void OnDestroy()
+    {
+        if (DialogueManager.instance == null)
+        {
+            return;
+        }
+
+        DialogueManager.instance.onDialogueStarted -= OnDialogueStarted;
+        DialogueManager.instance.onDialogueChanged -= OnDialogueChanged;
+        DialogueManager.instance.onDialogueEnded -= OnDialogueEnded;
+
+        DialogueManager.instance.onSelectionStarted -= OnSelectionStarted;
+        DialogueManager.instance.onSelectionEnded -= OnSelectionEnded;
+    }
+
     private void FixedUpdate()
     {
         if (Input.GetMouseButtonDown(0))
@@ -98,8 +113,7 @@ public class Dialogue : MonoBehaviour
             if (i >= maxOptions)
             {
                 break;
-            }
-            ;
+            };
 
             var option = optionPool[i];
 

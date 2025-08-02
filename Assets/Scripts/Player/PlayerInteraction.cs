@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 
 public class PlayerInteraction : MonoBehaviour
@@ -24,9 +25,11 @@ public class PlayerInteraction : MonoBehaviour
     {
         Ray ray = mainCam.ScreenPointToRay(Input.mousePosition);
 
-        if (Physics.Raycast(ray, out RaycastHit hit, 30f, interactableLayer))
+        if (Physics.Raycast(ray, out RaycastHit hit, 25f, interactableLayer))
         {
-            if (Vector3.Distance(hit.transform.position, transform.position) > interactionRange)
+            float distance = Vector3.Distance(hit.transform.position, transform.position);
+
+            if (distance > interactionRange)
             {
                 return;
             }

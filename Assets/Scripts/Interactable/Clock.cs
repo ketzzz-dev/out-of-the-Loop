@@ -8,6 +8,17 @@ public class Clock : Interactable
         DialogueManager.instance.onDialogueEnded += WakeUp;
     }
 
+    private void OnDestroy()
+    {
+        if (DialogueManager.instance == null)
+        {
+            return;
+        }
+        
+        DialogueManager.instance.onDialogueChanged -= SetToWakeUp;
+        DialogueManager.instance.onDialogueEnded -= WakeUp;
+    }
+
     private void SetToWakeUp(string content, string node)
     {
         if (node != "shouldWake")

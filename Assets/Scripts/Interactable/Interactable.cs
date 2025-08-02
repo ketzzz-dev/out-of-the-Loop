@@ -1,11 +1,10 @@
-using System;
 using UnityEngine;
 
 public class Interactable : MonoBehaviour
 {
     [SerializeField] private TextAsset dialogueFile;
 
-    public void Interact()
+    public virtual void Interact()
     {
         if (dialogueFile == null)
         {

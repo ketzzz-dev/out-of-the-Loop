@@ -8,6 +8,17 @@ public class Bed : Interactable
         DialogueManager.instance.onDialogueEnded += Sleep;
     }
 
+    private void OnDestroy()
+    {
+        if (DialogueManager.instance == null)
+        {
+            return;
+        }
+        
+        DialogueManager.instance.onDialogueChanged -= SetToSleep;
+        DialogueManager.instance.onDialogueEnded -= Sleep;
+    }
+
     private void SetToSleep(string content, string node)
     {
         if (node != "shouldSleep")
