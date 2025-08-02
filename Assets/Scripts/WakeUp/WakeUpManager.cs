@@ -75,12 +75,25 @@ public class WakeUpManager : MonoBehaviour
     }
     
     // Teleports player to current room's spawn point.
-    private void MovePlayer()
+    public void MovePlayer()
     {
         if (player != null && spawnpoints.Length > 0)
         {
             player.position = spawnpoints[roomNumber].position;
             Debug.Log($"Player moved to room {roomNumber} at {player.position}");
+
+            justMoved = true;
+        }
+    }
+
+    // Teleports player to current room's spawn point.
+    public void MovePlayer(int index)
+    {
+        if (player != null && spawnpoints.Length > 0 && !justMoved)
+        {
+            player.position = spawnpoints[index].position;
+            Debug.Log($"Player moved to room {index} at {player.position}");
+            roomNumber = index;
 
             justMoved = true;
         }
