@@ -16,30 +16,6 @@ public class SL1Door : Interactable
         dialogueGraph = JsonUtility.FromJson<DialogueGraph>(dialogueFile.text);
     }
 
-    void OnMouseDown()  
-    {
-        if (isOpen)
-        {
-            Debug.Log("Door is already unlocked.");
-            return;
-        }
-
-        if (Inventory.instance.heldItem == null)
-        {
-            Debug.Log("You're not holding any item.");
-            return;
-        }
-
-        if (Inventory.instance.heldItem.name == requiredKey && !isOpen)
-        {
-            OpenDoor();
-        }
-        else
-        {
-            Debug.Log("This item can't unlock the door.");
-        }
-    }
-
     private void OpenDoor()
     {
         isOpen = true;
@@ -54,13 +30,30 @@ public class SL1Door : Interactable
 
     public override void Interact()
     {
-        if (!isOpen)
+        if (isOpen) 
         {
-            DialogueManager.instance.StartDialogue(dialogueGraph);
+            Debug.Log("Door is already unlocked.");
+            return;
+        }
+
+        if (Inventory.instance.heldItem?.name == requiredKey) 
+        {
+            OpenDoor();
+            return;
+        }
+
+        if (Inventory.instance.heldItem != null)
+        {
+            Debug.Log("This item can't unlock the door.");
         }
         else
         {
-            Debug.Log("No dialogue triggered because door is open.");
+            Debug.Log("You're not holding any item.");
+        }
+
+        if (!isOpen)
+        {
+            DialogueManager.instance.StartDialogue(dialogueGraph);
         }
     }
 }
