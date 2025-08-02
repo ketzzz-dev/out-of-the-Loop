@@ -1,0 +1,28 @@
+{
+    "nodes": [
+        {
+            "id": "start",
+            "content": "It's a lamp. Should I take the lightbulb?",
+            "connections": [
+                {
+                    "label": "take the lightbulb",
+                    "nextNode": "takeBulb"
+                },
+                {
+                    "label": "no",
+                    "nextNode": "leaveBulb"
+                }
+            ]
+        },
+        {
+            "id": "takeBulb",
+            "content": "I guess I should...",
+            "connections": []
+        },
+        {
+            "id": "leaveBulb",
+            "content": "It's too hot to touch anyway.",
+            "connections": []
+        }
+    ]
+}
