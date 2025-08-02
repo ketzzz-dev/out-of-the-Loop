@@ -4,10 +4,13 @@ public class Lamp : Interactable
 {
     private bool bulbTaken;
     [SerializeField] private Item lightBulb;
+    [SerializeField] private TextAsset dialogueFile;
 
-
-    private void Start()
+    private DialogueGraph dialogueGraph;
+	private void Start()
     {
+        dialogueGraph = JsonUtility.FromJson<DialogueGraph>(dialogueFile.text);
+
         DialogueManager.instance.onDialogueChanged += SetToBulb;
         DialogueManager.instance.onDialogueEnded += Bulb;
     }
@@ -44,7 +47,12 @@ public class Lamp : Interactable
         Inventory.instance.SetHeldItem(lightBulb);
 
 		DialogueManager.instance.SetCondition("isDarkRoom", true);
+		DialogueManager.instance.SetCondition("bulbTaken", true);
 
 		print("Bulb was taken");
     }
+
+	public override void Interact() {
+		DialogueManager.instance.StartDialogue(dialogueGraph);
+	}
 }
