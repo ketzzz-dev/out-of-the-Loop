@@ -1,23 +1,42 @@
+using MADCUP.STM;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour
 {
-	public Item heldItem;
+	public static Inventory instance { get; private set; }
+
 	[Header("UI Elements")]
 	[SerializeField] private Image heldItemImage;
 
-	private void Start() {
-		
+	public Item heldItem { get; private set; }
+
+	private void Awake()
+	{
+		if (instance != null && instance != this)
+		{
+			Destroy(this);
+		}
+		else
+		{
+			instance = this;
+		}
 	}
 
-	public void ChangeHeldItem(Item item) {
+	public void SetHeldItem(Item item)
+	{
 		heldItem = item;
-		heldItemImage.sprite = heldItem.itemSprite;
+
+		SpriteMesh spriteMesh = item.GetComponent<SpriteMesh>();
+
+		heldItemImage.sprite = spriteMesh.sprite;
+		heldItemImage.enabled = true;
 	}
 
-	public void ClearHeldItem() {
-		heldItemImage.sprite = null;
+	public void ClearHeldItem()
+	{
 		heldItem = null;
+		heldItemImage.sprite = null;
+		heldItemImage.enabled = false;
 	}
 }

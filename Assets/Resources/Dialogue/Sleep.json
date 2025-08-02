@@ -1,0 +1,28 @@
+{
+    "nodes": [
+        {
+            "id": "start",
+            "content": "Should I sleep?",
+            "connections": [
+                {
+                    "label": "yes",
+                    "nextNode": "shouldSleep"
+                },
+                {
+                    "label": "no",
+                    "nextNode": "notYet"
+                }
+            ]
+        },
+        {
+            "id": "shouldSleep",
+            "content": "I guess I should...",
+            "connections": []
+        },
+        {
+            "id": "notYet",
+            "content": "No, not yet...",
+            "connections": []
+        }
+    ]
+}
