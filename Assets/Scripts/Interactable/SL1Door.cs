@@ -1,11 +1,20 @@
 using UnityEngine;
 
-public class SL1_Door : Interactable
+public class SL1Door : Interactable
 {
     //change header and field for other key&locks i guess
     [Header("Door Settings")]
     [SerializeField] private string requiredKey = "door key"; //holy shit please make sure its the same name as the component dont be like me 
+    [SerializeField] private TextAsset dialogueFile;
+
+    private DialogueGraph dialogueGraph;
+
     private bool isOpen = false;
+
+    private void Start()
+    {
+        dialogueGraph = JsonUtility.FromJson<DialogueGraph>(dialogueFile.text);
+    }
 
     void OnMouseDown()  
     {
@@ -47,8 +56,7 @@ public class SL1_Door : Interactable
     {
         if (!isOpen)
         {
-            //shows dialogue if its still locked
-            base.Interact();
+            DialogueManager.instance.StartDialogue(dialogueGraph);
         }
         else
         {
