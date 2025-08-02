@@ -43,6 +43,8 @@ public class Lamp : Interactable
         bulbTaken = false;
         Inventory.instance.SetHeldItem(lightBulb);
 
-        print("Bulb was taken");
+		DialogueManager.instance.SetCondition("isDarkRoom", true);
+
+		print("Bulb was taken");
     }
 }

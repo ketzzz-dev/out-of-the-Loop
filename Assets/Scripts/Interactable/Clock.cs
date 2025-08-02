@@ -38,7 +38,7 @@ public class Clock : Interactable
 
         shouldWakeUp = false;
 
-        print("wake");  
+        print("wake");
 
         WakeUpManager.instance.WakeUp();
     }
