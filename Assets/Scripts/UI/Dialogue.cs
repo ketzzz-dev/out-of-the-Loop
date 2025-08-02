@@ -29,13 +29,15 @@ public class Dialogue : MonoBehaviour
         DialogueManager.instance.onSelectionStarted += OnSelectionStarted;
         DialogueManager.instance.onSelectionEnded += OnSelectionEnded;
 
-        for(int i = 0; i < maxOptions; i++)
+        for (int i = 0; i < maxOptions; i++)
         {
             var option = Instantiate(optionPrefab, options.transform);
 
             option.SetActive(false);
             optionPool.Add(option);
         }
+        
+        options.SetActive(false);
     }
 
     private void OnDestroy()
@@ -44,7 +46,7 @@ public class Dialogue : MonoBehaviour
         {
             return;
         }
-        
+
         DialogueManager.instance.onDialogueStarted -= OnDialogueStarted;
         DialogueManager.instance.onDialogueChanged -= OnDialogueChanged;
         DialogueManager.instance.onDialogueEnded -= OnDialogueEnded;
@@ -53,9 +55,9 @@ public class Dialogue : MonoBehaviour
         DialogueManager.instance.onSelectionEnded -= OnSelectionEnded;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetMouseButtonDown(0))
         {
             if (isTyping)
             {
@@ -85,7 +87,7 @@ public class Dialogue : MonoBehaviour
         ShowDialogue(content);
     }
 
-    private void OnDialogueChanged(string content)
+    private void OnDialogueChanged(string content, string node)
     {
         ShowDialogue(content);
     }
@@ -103,6 +105,8 @@ public class Dialogue : MonoBehaviour
 
             return;
         }
+        
+        options.SetActive(true);
 
         for (int i = 0; i < labels.Length; i++)
         {
@@ -110,11 +114,11 @@ public class Dialogue : MonoBehaviour
             {
                 break;
             };
-            
+
             var option = optionPool[i];
 
             option.SetActive(true);
-            
+
             var button = option.GetComponent<Button>();
             var labelText = option.GetComponentInChildren<TextMeshProUGUI>();
 
@@ -122,11 +126,11 @@ public class Dialogue : MonoBehaviour
             {
                 labelText.text = labels[i];
             }
-            
+
             string currentLabel = labels[i];
 
             button.onClick.RemoveAllListeners();
-            button.onClick.AddListener(() => 
+            button.onClick.AddListener(() =>
             {
                 DialogueManager.instance.SelectBranch(currentLabel);
             });

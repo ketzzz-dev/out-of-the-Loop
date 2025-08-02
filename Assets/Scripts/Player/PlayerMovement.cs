@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
 
     private new Rigidbody rigidbody;
     private Animator animator;
+
     private Vector3 inputAxes;
 
     private void Awake()
@@ -19,6 +20,13 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        if (DialogueManager.instance.isActive)
+        {
+            inputAxes = Vector3.zero;
+
+            return;
+        }
+
         float x = Input.GetAxisRaw("Horizontal");
         float y = Input.GetAxisRaw("Vertical");
 
