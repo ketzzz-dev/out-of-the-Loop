@@ -1,9 +1,16 @@
+using UnityEngine;
+
 public class Clock : Interactable
 {
+    [SerializeField] private TextAsset dialogueFile;
+
+    private DialogueGraph dialogueGraph;
     private bool shouldWakeUp;
 
     private void Start()
     {
+        dialogueGraph = JsonUtility.FromJson<DialogueGraph>(dialogueFile.text);
+        
         DialogueManager.instance.onDialogueChanged += SetToWakeUp;
         DialogueManager.instance.onDialogueEnded += WakeUp;
     }
@@ -17,6 +24,11 @@ public class Clock : Interactable
         
         DialogueManager.instance.onDialogueChanged -= SetToWakeUp;
         DialogueManager.instance.onDialogueEnded -= WakeUp;
+    }
+
+    public override void Interact()
+    {
+        DialogueManager.instance.StartDialogue(dialogueGraph);
     }
 
     private void SetToWakeUp(string content, string node)

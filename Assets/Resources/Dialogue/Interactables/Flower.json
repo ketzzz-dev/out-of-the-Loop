@@ -1,0 +1,9 @@
+{
+    "nodes": [
+        {
+            "id": "start",
+            "content": "It’s a flower vase, putting a flower here would be nice.",
+            "connections": []
+        }
+    ]
+}

@@ -15,6 +15,9 @@ public class DialogueManager : MonoBehaviour
     public event Action<string[]> onSelectionStarted;
     public event Action onSelectionEnded;
 
+	// Dialogue Choices
+	private Dictionary<string, bool> dialogueConditions = new Dictionary<string, bool>();
+
     // internal data
     private DialogueGraph currentGraph;
     private DialogueGraph.DialogueNode currentNode;
@@ -132,7 +135,11 @@ public class DialogueManager : MonoBehaviour
         {
             if (connection.label == label)
             {
-                nextNode = connection.nextNode;
+				nextNode = connection.nextNode;
+				if (connection.condition != null) {
+					if (dialogueConditions.ContainsKey(connection.condition))
+						nextNode = dialogueConditions[connection.condition] ? connection.nextNodeTrue : connection.nextNode;
+				}
             }
         }
         
@@ -164,4 +171,8 @@ public class DialogueManager : MonoBehaviour
 
         onSelectionStarted?.Invoke(labels);
     }
+	
+	public void SetCondition(string condition, bool val) {
+		dialogueConditions[condition] = val;
+	}
 }
