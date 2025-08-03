@@ -4,7 +4,7 @@ public class SL1Door : Interactable
 {
     //change header and field for other key&locks i guess
     [Header("Door Settings")]
-    [SerializeField] private string requiredKey = "door key"; //holy shit please make sure its the same name as the component dont be like me 
+    [SerializeField] private Item requiredKey;
     [SerializeField] private TextAsset dialogueFile;
 
     private DialogueGraph dialogueGraph;
@@ -30,7 +30,7 @@ public class SL1Door : Interactable
             return;
         }
 
-        if (Inventory.instance.heldItem.name == requiredKey && !isOpen)
+        if (Inventory.instance.heldItem == requiredKey && !isOpen)
         {
             OpenDoor();
         }
