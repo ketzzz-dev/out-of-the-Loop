@@ -4,6 +4,7 @@ using UnityEngine.Rendering;
 
 public class Lamp : Interactable
 {
+    //KILL ME NOW
     [SerializeField] private Item lightBulb;
     [SerializeField] private TextAsset dialogueHasBulb;
     [SerializeField] private TextAsset dialogueNoBulb;
