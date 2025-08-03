@@ -19,6 +19,7 @@ public class TraversalTrigger : MonoBehaviour
 		FadeManager.instance.StartFadeIn(new Color(0, 0, 0), 2f);
 
 		yield return new WaitForSecondsRealtime(2.5f);
+		yield return new WaitForFixedUpdate();
 
 		player.transform.position = newDestPos.position;
 
