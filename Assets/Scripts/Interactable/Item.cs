@@ -6,3 +6,4 @@ public class Item : Interactable
 		gameObject.SetActive(false);
 	}
 }
+	
