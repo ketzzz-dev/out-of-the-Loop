@@ -5,15 +5,17 @@ public class SL1Door : Interactable
     //change header and field for other key&locks i guess
     [Header("Door Settings")]
     [SerializeField] private Item requiredKey;
-    [SerializeField] private TextAsset dialogueFile;
+    [SerializeField] private string requiredKeyName;
+    [SerializeField] private TextAsset doorOpen, doorClosed;
 
-    private DialogueGraph dialogueGraph;
+    private DialogueGraph dialogueGraphOpen, dialogueGraphClosed;
 
     private bool isOpen = false;
 
     private void Start()
     {
-        dialogueGraph = JsonUtility.FromJson<DialogueGraph>(dialogueFile.text);
+        dialogueGraphOpen = JsonUtility.FromJson<DialogueGraph>(doorOpen.text);
+        dialogueGraphClosed = JsonUtility.FromJson<DialogueGraph>(doorClosed.text);
     }
 
     void OnMouseDown()  
@@ -30,7 +32,7 @@ public class SL1Door : Interactable
             return;
         }
 
-        if (Inventory.instance.heldItem == requiredKey && !isOpen)
+        if ((Inventory.instance.heldItem == requiredKey || Inventory.instance.heldItem.name == requiredKeyName)&& !isOpen)
         {
             OpenDoor();
         }
@@ -56,10 +58,12 @@ public class SL1Door : Interactable
     {
         if (!isOpen)
         {
-            DialogueManager.instance.StartDialogue(dialogueGraph);
+            DialogueManager.instance.StartDialogue(dialogueGraphClosed);
         }
         else
         {
+            DialogueManager.instance.StartDialogue(dialogueGraphOpen);
+            WakeUpManager.instance.TryLoadNextScene();
             Debug.Log("No dialogue triggered because door is open.");
         }
     }

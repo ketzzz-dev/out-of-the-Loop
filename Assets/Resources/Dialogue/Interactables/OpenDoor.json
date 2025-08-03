@@ -1,0 +1,9 @@
+{
+    "nodes": [
+        {
+            "id": "start",
+            "content": "Its open!",
+            "connections": []
+        }
+    ]
+}

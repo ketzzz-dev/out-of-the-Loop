@@ -2,7 +2,7 @@ using UnityEngine;
 using TMPro;
 using System.Collections;
 
-public class SafeUIInteraction : MonoBehaviour
+public class SafeUIInteraction : Interactable
 {
     [Header("UI Elements")]
     public GameObject safeUIPanel;
@@ -36,6 +36,11 @@ public class SafeUIInteraction : MonoBehaviour
     {
         if (isPlayerNearby && Input.GetKeyDown(interactKey) && !safeOpened)
             ToggleSafeUI();
+    }
+
+    public override void Interact()
+    {
+        ToggleSafeUI();
     }
 
     public void PressNumber(string number)
