@@ -28,6 +28,7 @@ public class Bed : Interactable
 
     public override void Interact()
     {
+		print("atempt t spleep");
         DialogueManager.instance.StartDialogue(dialogueGraph);
     }
 

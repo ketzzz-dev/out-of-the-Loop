@@ -3,6 +3,10 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody), typeof(Animator))]
 public class PlayerMovement : MonoBehaviour
 {
+	public static PlayerMovement instance { get; private set; }
+
+	public bool freezeMovement = false;
+
     [SerializeField] private float speed;
     [SerializeField] private float acceleration;
     [SerializeField] private float deceleration;
@@ -18,9 +22,18 @@ public class PlayerMovement : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
-    private void Update()
+	private void Start() {
+		if (instance != null && instance != this) {
+			Destroy(this);
+		}
+		else {
+			instance = this;
+		}
+	}
+
+	private void Update()
     {
-        if (DialogueManager.instance.isActive)
+        if (DialogueManager.instance.isActive || freezeMovement)
         {
             inputAxes = Vector3.zero;
 
