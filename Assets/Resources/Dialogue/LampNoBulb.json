@@ -1,0 +1,35 @@
+{
+	"nodes": [
+		{
+			"id": "start",
+			"content": "It's a lamp. It has no lightbulb.",
+			"connections": [
+				{
+					"label": "place a lightbulb",
+					"condition": "noBulbItem",
+					"nextNode": "placeBulb",
+					"nextNodeTrue": "noBulb"
+				},
+				{
+					"label": "leave the lamp",
+					"nextNode": "leaveLamp"
+				}
+			]
+		},
+		{
+			"id": "placeBulb",
+			"content": "The bulb fits...",
+			"connections": []
+		},
+		{
+			"id": "noBulb",
+			"content": "I don't have a lightbulb.",
+			"connections": []
+		},
+		{
+			"id": "leaveLamp",
+			"content": "It's dark...",
+			"connections": []
+		}
+	]
+}

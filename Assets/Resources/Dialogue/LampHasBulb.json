@@ -2,17 +2,17 @@
 	"nodes": [
 		{
 			"id": "start",
-			"content": "It's a lamp. Should I take the lightbulb?",
+			"content": "It's a lamp. It has a lightbulb.",
 			"connections": [
 				{
 					"label": "take the lightbulb",
-					"condition": "bulbTaken",
+					"condition": "haveBulbItem",
 					"nextNode": "takeBulb",
 					"nextNodeTrue": "noBulb"
 				},
 				{
-					"label": "no",
-					"nextNode": "leaveBulb"
+					"label": "leave the lamp",
+					"nextNode": "leaveLamp"
 				}
 			]
 		},
@@ -23,12 +23,12 @@
 		},
 		{
 			"id": "noBulb",
-			"content": "There is no more bulb.",
+			"content": "My hands are full.",
 			"connections": []
 		},
 		{
-			"id": "leaveBulb",
-			"content": "It's too hot to touch anyway.",
+			"id": "leaveLamp",
+			"content": "It looks a little off...",
 			"connections": []
 		}
 	]
