@@ -80,7 +80,8 @@ public class Lamp : Interactable
             //DialogueManager.instance.SetCondition("noBulbItem", true);
 
 		    print("Bulb was taken");
-        } else if (!bulbTaken && hasBulb && !leaveLamp && !itemCheck())
+        } 
+		else if (!bulbTaken && hasBulb && !leaveLamp && !itemCheck())
         {
             Inventory.instance.ClearHeldItem();
 
