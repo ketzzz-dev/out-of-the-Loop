@@ -100,7 +100,7 @@ public class WakeUpManager : MonoBehaviour
     }
 
     // Attempts to load the next scene if available.
-    private void TryLoadNextScene()
+    public void TryLoadNextScene()
     {
         if (!string.IsNullOrEmpty(nextSceneName))
         {
