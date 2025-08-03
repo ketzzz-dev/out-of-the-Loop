@@ -4,7 +4,6 @@ public class Item : Interactable
 	{
 		Inventory.instance.SetHeldItem(this);
 		gameObject.SetActive(false);
-
-		base.Interact();
 	}
 }
+	
