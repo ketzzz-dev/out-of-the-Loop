@@ -6,6 +6,12 @@ public class PotInteraction : MonoBehaviour
     public float HeightOffset = 0.6f;
     public float interactionDistance = 2.0f;
     public bool hasFlower = false;
+    private SpriteRenderer childSprite;
+    void Awake()
+    {
+        childSprite = GetComponentInChildren<SpriteRenderer>(true);
+    }
+
 
     void Update()
     {
@@ -31,8 +37,9 @@ public class PotInteraction : MonoBehaviour
 
         Vector3 newPosition = transform.position + new Vector3(0, HeightOffset, 0);
         flower.transform.position = newPosition;
-
-        flower.gameObject.SetActive(true);
+        
+        childSprite.gameObject.SetActive(true);
+        //flower.gameObject.SetActive(true);
         Inventory.instance.ClearHeldItem();
         hasFlower = true;
         //Debug.Log("Flower Placed SL1");
