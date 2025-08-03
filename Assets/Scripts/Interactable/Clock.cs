@@ -10,7 +10,7 @@ public class Clock : Interactable
     private void Start()
     {
         dialogueGraph = JsonUtility.FromJson<DialogueGraph>(dialogueFile.text);
-        
+
         DialogueManager.instance.onDialogueChanged += SetToWakeUp;
         DialogueManager.instance.onDialogueEnded += WakeUp;
     }
